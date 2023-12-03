@@ -6,7 +6,7 @@ import Data.Char (isDigit)
 import Data.Functor ((<&>))
 import Data.Map (Map)
 import qualified Data.Map as Map
-import Data.Maybe (mapMaybe, fromMaybe)
+import Data.Maybe (fromMaybe, mapMaybe)
 
 type Point = (Int, Int)
 
@@ -61,10 +61,10 @@ getSymbolsMap partNumbers =
   let symbolsWithNumbers = concatMap explodeNumberAndSymbols partNumbers
    in foldr addSymbolNumber Map.empty symbolsWithNumbers
   where
-    explodeNumberAndSymbols (n, ss) = map ((, number n) . fst) ss
+    explodeNumberAndSymbols (n, ss) = map ((,number n) . fst) ss
     addSymbolNumber (sPos, n) = Map.alter (Just . (n :) . fromMaybe []) sPos
 
-getGearRatio ::Map Point [Int] -> Symbol -> Maybe Int
+getGearRatio :: Map Point [Int] -> Symbol -> Maybe Int
 getGearRatio map (sPos, '*') = case Map.lookup sPos map of
   (Just [n1, n2]) -> Just $ n1 * n2
   _ -> Nothing
