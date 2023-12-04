@@ -1,0 +1,12 @@
+cabal-version:      2.4
+name:               day04
+version:            0.1.0.0
+author:             davidaf3
+
+executable day04
+    main-is:          Scratchcards.hs
+    build-depends:    base ^>=4.17.2.0
+                    , containers
+                    , parsec
+                    , vector
+    default-language: Haskell2010
