@@ -1,0 +1,10 @@
+cabal-version:      2.4
+name:               day06
+version:            0.1.0.0
+author:             davidaf3
+
+executable day06
+    main-is:          BoatRaces.hs
+    build-depends:    base ^>=4.17.2.0
+                    , parsec
+    default-language: Haskell2010
