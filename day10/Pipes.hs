@@ -2,11 +2,10 @@
 
 module Main where
 
-import Control.Monad.State (State, get, put)
 import Data.Functor ((<&>))
 import Data.List (find, nub, sort)
 import Data.Maybe (fromMaybe, isJust, mapMaybe)
-import Data.Set (Set)
+import Data.Set (Set, (\\))
 import qualified Data.Set as Set
 import Data.Vector (Vector, fromList, (!), (!?), (//))
 import qualified Data.Vector as V
@@ -111,12 +110,15 @@ partition m loop pointData (s1, s2) =
   where
     isValid pt = not (Set.member pt loop) && isJust (getPipe m pt)
 
-expand :: Map -> Set Point -> [Point] -> Set Point -> Set Point
+expand :: Map -> Set Point -> Set Point -> Set Point -> Set Point
 expand m loop pts set =
-  let nextSet = foldr Set.insert set pts
-      adjacents = nub $ concatMap (map fst . adjacent) pts
-      next = filter (\pt -> not (Set.member pt loop) && not (Set.member pt nextSet) && isJust (getPipe m pt)) adjacents
+  let nextSet = set `Set.union` pts
+      adjacents = Set.fromList $ concatMap (map fst . adjacent) pts
+      next = Set.filter (isJust . getPipe m) $ adjacents \\ loop \\ nextSet
    in if null next then nextSet else expand m loop next nextSet
+
+isEdge :: Map -> Point -> Bool
+isEdge m (x, y) = x == 0 || y == 0 || x == length (m ! 0) - 1 || x == length m - 1
 
 doParse :: Parsec Void String a -> String -> a
 doParse parser = either (error . errorBundlePretty) id . parse parser ""
@@ -130,8 +132,6 @@ main = do
   let loop = foldLoop (\(pt, _, _) s -> Set.insert pt s) Set.empty m' start
   print $ flip div 2 $ Set.size loop
   let (part1, part2) = foldLoop (partition m' loop) (Set.empty, Set.empty) m' start
-  -- We partition the tiles that are not part of the loop in two sets. We don't
-  -- know which set is outside and which is inside, so we print the size of both
-  -- and try. The inside set tends to be the smaller one
-  print $ Set.size $ expand m' loop (Set.toList part2) Set.empty
-  print $ Set.size $ expand m' loop (Set.toList part1) Set.empty
+  let (part1', part2') = (expand m' loop part1 Set.empty, expand m' loop part2 Set.empty)
+  let inside = if any (isEdge m') part1' then part2' else part1'
+  print $ Set.size inside

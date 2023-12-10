@@ -9,5 +9,4 @@ executable day10
                     , megaparsec
                     , vector
                     , containers
-                    , mtl
     default-language: Haskell2010
