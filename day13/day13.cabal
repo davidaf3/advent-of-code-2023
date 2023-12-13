@@ -1,0 +1,11 @@
+cabal-version:      2.4
+name:               day13
+version:            0.1.0.0
+author:             davidaf3
+
+executable day13
+    main-is:          Mirrors.hs
+    build-depends:    base ^>=4.17.2.0
+                    , megaparsec
+                    , vector
+    default-language: Haskell2010
