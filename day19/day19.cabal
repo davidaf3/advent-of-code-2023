@@ -1,0 +1,11 @@
+cabal-version:      3.0
+name:               day19
+version:            0.1.0.0
+author:             davidaf3
+
+executable day19
+    main-is:          Parts.hs
+    build-depends:    base ^>=4.17.2.0
+                    , megaparsec
+                    , containers
+    default-language: Haskell2010
