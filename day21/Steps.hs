@@ -18,9 +18,6 @@ getTile grid (x, y) = grid !? y >>= (!? x)
 getAllIndexes :: Grid -> [Point]
 getAllIndexes grid = [(x, y) | x <- [0 .. V.length (grid ! 0)], y <- [0 .. V.length grid]]
 
-expand :: Point -> [Point]
-expand (x, y) = [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
-
 isValid :: Maybe Char -> Bool
 isValid tile = tile == Just '.' || tile == Just 'S'
 
