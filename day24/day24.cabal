@@ -1,0 +1,11 @@
+cabal-version:      3.0
+name:               day24
+version:            0.1.0.0
+author:             davidaf3
+
+executable day24
+    main-is:          Hail.hs
+    other-modules:    GaussElimination
+    build-depends:    base ^>=4.17.2.0
+                    , megaparsec
+    default-language: Haskell2010
