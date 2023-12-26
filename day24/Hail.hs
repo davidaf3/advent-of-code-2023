@@ -61,7 +61,7 @@ findIntersecting :: [Line Int] -> Symbolic ()
 findIntersecting lines = do
   [x, y, z, vx, vy, vz] <- mapM sInteger ["x", "y", "z", "vx", "vy", "vz"]
   let constrainLine (i, ((xi, yi, zi), (vxi, vyi, vzi))) = do
-        ti <- sInteger ("t" ++ show i)
+        ti <- sInteger ('t' : show i)
         constrain $ ti .>= 0
         constrain $ x + vx * ti .== fromIntegral xi + fromIntegral vxi * ti
         constrain $ y + vy * ti .== fromIntegral yi + fromIntegral vyi * ti

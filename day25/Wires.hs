@@ -38,8 +38,6 @@ contract graph t gen
           replaceNeighbours = Just . replace dst new . replace src new . fromJust
           graph''' = foldr (Map.alter replaceNeighbours) graph'' (Map.keys graph'')
       contract graph''' t gen
-  where
-    replaceNeighbours src dst new = Just . replace dst new . replace src new . fromJust
 
 replace :: (Ord a) => a -> a -> Set a -> Set a
 replace old new set =
