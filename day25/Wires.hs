@@ -2,16 +2,13 @@
 
 module Main where
 
-import Control.Monad (replicateM)
 import Data.Functor ((<&>))
-import Data.List (minimumBy, nub, unfoldr)
 import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.Maybe (fromJust, fromMaybe)
 import Data.Set (Set)
 import qualified Data.Set as Set
 import Data.Void (Void)
-import Debug.Trace (trace)
 import System.Random.Stateful (StatefulGen, mkStdGen, runStateGen_, uniformRM)
 import Text.Megaparsec (Parsec, errorBundlePretty, parse, sepBy1, some)
 import Text.Megaparsec.Char (char, eol, letterChar, string)
